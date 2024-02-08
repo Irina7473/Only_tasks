@@ -5,54 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="820acd5d-8bb4-4699-b259-7b8a7715a9c7" name="Changes" comment="news.list (компонент + шаблон)">
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/.description.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/.parameters.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/component.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/images/article-bg.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/images/article-item-bg-1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/images/article-item-bg-2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/images/article-item-bg-3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/images/article-item-bg-4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/images/article-item-bg-5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/images/article-item-bg-6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/images/news_list.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/lang/en/.description.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/lang/en/.parameters.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/lang/en/component.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/lang/en/help/.tooltips.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/lang/ru/.description.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/lang/ru/.parameters.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/lang/ru/component.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/lang/ru/help/.tooltips.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/templates/my_newslist/.parameters.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/templates/my_newslist/common.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/templates/my_newslist/lang/en/.parameters.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/templates/my_newslist/lang/en/template.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/templates/my_newslist/lang/ru/.parameters.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/templates/my_newslist/lang/ru/template.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_1/build/local/components/build/news.list/templates/my_newslist/template.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_2/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_2/build/css/common.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_2/build/fonts/Gilroy-Bold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_2/build/fonts/Gilroy-Bold.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_2/build/fonts/Gilroy-Bold.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_2/build/fonts/Gilroy-Extrabold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_2/build/fonts/Gilroy-Extrabold.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_2/build/fonts/Gilroy-Extrabold.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_2/build/fonts/Gilroy-Light.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_2/build/fonts/Gilroy-Light.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_2/build/fonts/Gilroy-Light.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_2/build/fonts/Gilroy-Medium.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_2/build/fonts/Gilroy-Medium.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_2/build/fonts/Gilroy-Medium.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_2/build/fonts/Gilroy-Regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_2/build/fonts/Gilroy-Regular.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_2/build/fonts/Gilroy-Regular.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_2/build/fonts/GothamPro.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_2/build/fonts/GothamPro.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_2/build/fonts/GothamPro.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_2/build/images/favicon.604825ed.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks-for-trainees-task_2/build/tests.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +66,15 @@
       <workItem from="1706800044489" duration="557000" />
       <workItem from="1706800612012" duration="1048000" />
       <workItem from="1706868880554" duration="838000" />
-      <workItem from="1706869735009" duration="695000" />
+      <workItem from="1706869735009" duration="1152000" />
+      <workItem from="1706956943314" duration="382000" />
+      <workItem from="1707062370863" duration="3296000" />
+      <workItem from="1707113326237" duration="1316000" />
+      <workItem from="1707146672197" duration="10277000" />
+      <workItem from="1707188798735" duration="5688000" />
+      <workItem from="1707230487814" duration="1934000" />
+      <workItem from="1707309298915" duration="6000000" />
+      <workItem from="1707414111788" duration="5347000" />
     </task>
     <task id="LOCAL-00001" summary="create">
       <created>1706549428867</created>
@@ -129,7 +90,14 @@
       <option name="project" value="LOCAL" />
       <updated>1706870037796</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="news.list (компонент + шаблон)">
+      <created>1706870597376</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1706870597376</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
