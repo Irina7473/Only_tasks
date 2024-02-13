@@ -1,5 +1,7 @@
-<?php  if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();  ?>
-
+<?php  if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+$this->addExternalCss("/local/templates/build/css/common.css");
+ ?>
+<div id="barba-wrapper">
 <div class="article-list">
 
     <?php foreach($arResult["ITEMS"] as $arItem):?>
@@ -10,6 +12,7 @@
             CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_DELETE"),
             array("CONFIRM" => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));
         ?>
+		<a class="article-item article-list__item" href="#" data-anim="anim-3">
 
         <?php if($arParams["DISPLAY_PICTURE"]!="N" && is_array($arItem["PREVIEW_PICTURE"])):?>
             <?php if(!$arParams["HIDE_LINK_WHEN_NO_DETAIL"] || ($arItem["DETAIL_TEXT"] && $arResult["USER_HAVE_ACCESS"])):?>
@@ -54,11 +57,11 @@
                 <div class="article-item__content"><?php echo $arItem["PREVIEW_TEXT"]; ?></div>
             <?php endif; ?>
         </div>
-
+	</a>
     <?php endforeach;?>
 
-    <!-- БЛОК НИЖНЕЙ ПАГИНАЦИИ  - думаю не нужен здесь-->
     <?php if($arParams["DISPLAY_BOTTOM_PAGER"]):?>
         <br /><?=$arResult["NAV_STRING"]?>
     <?php endif;?>
+</div>
 </div>
