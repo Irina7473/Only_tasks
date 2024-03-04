@@ -20,20 +20,23 @@ class Iblock
         /* взводим флаг запуска */
         self::$handlerDisallow = true;
 
-        /* */
+        /* Проверка успешности добавления или изменения элемента, вызвавшего обработчик события */
         if (!$arFields["RESULT"])
-            AddMessage2Log("Ошибка добавления или изменения записи " . $arFields["ID"] . " (" . $arFields["RESULT_MESSAGE"] . ").");
+            AddMessage2Log("Ошибка добавления или изменения записи: " . $arFields["RESULT_MESSAGE"]);
         else{
-            AddMessage2Log("Запись с кодом " . $arFields["ID"] . " добавлена или изменена.");
+            AddMessage2Log("Запись с ID-" . $arFields["ID"] . " добавлена или изменена.");
             $IBLOCK_ID = self::FindIBlockID(self::$IBLOCK_CODE);
+
+            /* Проверка, что событие вызвано элементом не инфоблока LOG*/
             if ($arFields["IBLOCK_ID"] != $IBLOCK_ID){
 
-                /* Получаю имя и код инфоблока для название раздела лога */
+                /* Получаю имя и код инфоблока, в котором изменен элемент, для название раздела LOG */
                 $resIBlock = CIBlock::GetByID($arFields["IBLOCK_ID"]);
                 if($ar_res = $resIBlock->Fetch()){
                     $iBlockName = $ar_res["NAME"];
                     $sectionName = $iBlockName . "_" . $ar_res["IBLOCK_CODE"];
                 }
+
                 /* Проверяю - есть ли такой раздел в логе, добавляю - если нет */
                 $resSection = CIBlockSection::GetList( Array(),
                     Array('IBLOCK_ID'=>$IBLOCK_ID, 'NAME'=>$sectionName) );
@@ -48,19 +51,19 @@ class Iblock
                     );
                     $section = new CIBlockSection;
                     if ($sectionID  = $section->Add($arFieldsSection)) {
-                        echo "Добавлен раздел с ID : " . $sectionID . "<br>";
+                        AddMessage2Log("Добавлен раздел с ID-" . $sectionID);
                     } else {
-                        echo "Error: " . $section->LAST_ERROR . '<br>';
+                        AddMessage2Log("Ошибка добавления раздела:" . $section->LAST_ERROR);
                     }
                 }
 
-                /* Получаю текст для анонса элемента лога */
+                /* Получаю текст для анонса элемента LOG */
                 $parents = "";
                 if ($arFields["IBLOCK_SECTION_ID"])
                     $parents = self::FindParents($arFields["IBLOCK_SECTION_ID"], $parents);
                 $previewTextElement = $iBlockName . "->" . $parents . $arFields["NAME"];
 
-                /* Массив, содержащий значения полей элемента */
+                /* Массив, содержащий значения полей элемента LOG*/
                 $arFieldsElement = [
                     "IBLOCK_ID" => $IBLOCK_ID,
                     "IBLOCK_SECTION_ID" => $sectionID,
@@ -70,31 +73,30 @@ class Iblock
                     "PREVIEW_TEXT" => $previewTextElement,
                 ];
 
-                /* Проверяю - есть ли такой элемент в логе */
+                /* Проверяю - есть ли такой элемент в LOG */
                 $resElement = CIBlockElement::GetList( Array(),
                     Array('IBLOCK_ID'=>$IBLOCK_ID, 'NAME'=>$arFields["ID"]) );
-                /* Изменяю элемент в логе */
+                /* Изменяю элемент в LOG */
                 if($ar_res = $resElement->Fetch()){
                     $elementID = $ar_res["ID"];
                     $element = CIBlockElement::GetByID($elementID);
                     if ($element->Update($elementID, $arFieldsElement)) {
-                        echo "Изменен элемент с ID : " . $elementID . "<br>";
+                        AddMessage2Log("Изменен элемент с ID-" . $elementID);
                     } else {
-                        echo "Error: " . $element->LAST_ERROR . '<br>';
+                        AddMessage2Log("Ошибка изменения элемента:" . $element->LAST_ERROR);
                     }
                 }
-                /* Добавляю элемент в логе */
+                /* Добавляю элемент в LOG */
                 else {
                     $element = new CIBlockElement;
                     if ($elementID = $element->Add($arFieldsElement)) {
-                        echo "Добавлен элемент с ID : " . $elementID . "<br>";
+                        AddMessage2Log("Добавлен элемент с ID-" . $elementID);
                     } else {
-                        echo "Error: " . $element->LAST_ERROR . '<br>';
+                        AddMessage2Log("Ошибка добавления элемента:" . $element->LAST_ERROR);
                     }
                 }
             }
         }
-
         /* вновь разрешаем запускать обработчик */
         self::$handlerDisallow = false;
     }
@@ -194,7 +196,7 @@ class Iblock
         }
     }
 
-    /* Поиск ID инфоблока лога*/
+    /* Поиск ID инфоблока LOG*/
     static function FindIBlockID(string $IBLOCK_CODE)
     {
         $res = CIBlock::GetList(array(), ['CODE' => $IBLOCK_CODE]);
