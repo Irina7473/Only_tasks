@@ -2,7 +2,6 @@
 
 namespace Only\Site\Agents;
 
-
 class Iblock
 {
     protected static  $IBLOCK_CODE = 'LOG';

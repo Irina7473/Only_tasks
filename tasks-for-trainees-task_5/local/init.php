@@ -1,12 +1,8 @@
-<?php
+<?
+/* Файл находится по пути  /local/php_interface/init.php */
 
-namespace Only\Site\Handlers;
-// файл /bitrix/php_interface/init.php
-// регистрируем обработчик
-//AddEventHandler("iblock", "OnAfterIBlockElementAdd", Array("Iblock", "addLog"),100,
-//	    $_SERVER["DOCUMENT_ROOT"] . "/local/modules/dev.site/lib/Handlers/Iblock.php");
-//AddEventHandler("iblock", "OnAfterIBlockElementUpdate", Array("Iblock", "addLog"),100,
-//      $_SERVER["DOCUMENT_ROOT"] . "/local/modules/dev.site/lib/Handlers/Iblock.php");
+AddEventHandler("iblock", "OnAfterIBlockElementAdd", Array("Iblock", "addLog"));
+AddEventHandler("iblock", "OnAfterIBlockElementUpdate", Array("Iblock", "addLog"));
 
 class Iblock
 {
