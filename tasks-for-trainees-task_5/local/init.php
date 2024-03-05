@@ -1,13 +1,11 @@
 <?
-/* Файл находится по пути  /local/php_interface/init.php */
-
-AddEventHandler("iblock", "OnAfterIBlockElementAdd", Array("Iblock", "addLog"));
-AddEventHandler("iblock", "OnAfterIBlockElementUpdate", Array("Iblock", "addLog"));
+AddEventHandler("iblock", "OnAfterIBlockElementAdd", array("Iblock", "addLog"));
+AddEventHandler("iblock", "OnAfterIBlockElementUpdate", array("Iblock", "addLog"));
 
 class Iblock
 {
     protected static $handlerDisallow = false;
-    protected static  $IBLOCK_CODE = 'LOG';
+    protected static $IBLOCK_CODE = 'LOG';
 
     // создаем обработчик события "OnAfterIBlockElementAdd" и OnAfterIBlockElementUpdate
     public static function addLog(&$arFields)
@@ -21,34 +19,33 @@ class Iblock
         /* Проверка успешности добавления или изменения элемента, вызвавшего обработчик события */
         if (!$arFields["RESULT"])
             AddMessage2Log("Ошибка добавления или изменения записи: " . $arFields["RESULT_MESSAGE"]);
-        else{
+        else {
             AddMessage2Log("Запись с ID-" . $arFields["ID"] . " добавлена или изменена.");
             $IBLOCK_ID = self::FindIBlockID(self::$IBLOCK_CODE);
 
             /* Проверка, что событие вызвано элементом не инфоблока LOG*/
-            if ($arFields["IBLOCK_ID"] != $IBLOCK_ID){
+            if ($arFields["IBLOCK_ID"] != $IBLOCK_ID) {
 
                 /* Получаю имя и код инфоблока, в котором изменен элемент, для название раздела LOG */
                 $resIBlock = CIBlock::GetByID($arFields["IBLOCK_ID"]);
-                if($ar_res = $resIBlock->Fetch()){
+                if ($ar_res = $resIBlock->Fetch()) {
                     $iBlockName = $ar_res["NAME"];
                     $sectionName = $iBlockName . "_" . $ar_res["IBLOCK_CODE"];
                 }
 
                 /* Проверяю - есть ли такой раздел в логе, добавляю - если нет */
-                $resSection = CIBlockSection::GetList( Array(),
-                    Array('IBLOCK_ID'=>$IBLOCK_ID, 'NAME'=>$sectionName) );
-                if($ar_res = $resSection->Fetch()){
+                $resSection = CIBlockSection::GetList(array(),
+                    array('IBLOCK_ID' => $IBLOCK_ID, 'NAME' => $sectionName));
+                if ($ar_res = $resSection->Fetch()) {
                     $sectionID = $ar_res["ID"];
-                }
-                else{
-                    $arFieldsSection = Array(
+                } else {
+                    $arFieldsSection = array(
                         "ACTIVE" => 'Y',
                         "IBLOCK_ID" => $IBLOCK_ID,
                         "NAME" => $sectionName,
                     );
                     $section = new CIBlockSection;
-                    if ($sectionID  = $section->Add($arFieldsSection)) {
+                    if ($sectionID = $section->Add($arFieldsSection)) {
                         AddMessage2Log("Добавлен раздел с ID-" . $sectionID);
                     } else {
                         AddMessage2Log("Ошибка добавления раздела:" . $section->LAST_ERROR);
@@ -56,9 +53,13 @@ class Iblock
                 }
 
                 /* Получаю текст для анонса элемента LOG */
+                $resElement = CIBlockElement::GetByID($arFields["ID"]);
+                while ($ar_res = $resElement->GetNext()) {
+                    $IBLOCK_SECTION_ID = $ar_res["IBLOCK_SECTION_ID"];
+                }
                 $parents = "";
-                if ($arFields["IBLOCK_SECTION_ID"])
-                    $parents = self::FindParents($arFields["IBLOCK_SECTION_ID"], $parents);
+                if ($IBLOCK_SECTION_ID)
+                    $parents = self::FindParents($IBLOCK_SECTION_ID, $parents);
                 $previewTextElement = $iBlockName . "->" . $parents . $arFields["NAME"];
 
                 /* Массив, содержащий значения полей элемента LOG*/
@@ -72,21 +73,19 @@ class Iblock
                 ];
 
                 /* Проверяю - есть ли такой элемент в LOG */
-                $resElement = CIBlockElement::GetList( Array(),
-                    Array('IBLOCK_ID'=>$IBLOCK_ID, 'NAME'=>$arFields["ID"]) );
+                $element = new CIBlockElement;
+                $resElement = CIBlockElement::GetList(array(),
+                    array('IBLOCK_ID' => $IBLOCK_ID, 'NAME' => $arFields["ID"]));
                 /* Изменяю элемент в LOG */
-                if($ar_res = $resElement->Fetch()){
+                if ($ar_res = $resElement->Fetch()) {
                     $elementID = $ar_res["ID"];
-                    $element = CIBlockElement::GetByID($elementID);
                     if ($element->Update($elementID, $arFieldsElement)) {
                         AddMessage2Log("Изменен элемент с ID-" . $elementID);
                     } else {
                         AddMessage2Log("Ошибка изменения элемента:" . $element->LAST_ERROR);
                     }
-                }
-                /* Добавляю элемент в LOG */
+                } /* Добавляю элемент в LOG */
                 else {
-                    $element = new CIBlockElement;
                     if ($elementID = $element->Add($arFieldsElement)) {
                         AddMessage2Log("Добавлен элемент с ID-" . $elementID);
                     } else {
@@ -205,14 +204,45 @@ class Iblock
     }
 
     /*Поиск всех родительских групп */
-    static function FindParents(int $sectionID, string &$parents)
+    static function FindParents($sectionID, string &$parents)
     {
         $resSection = CIBlockSection::GetByID($sectionID);
-        while($ar_res = $resSection->Fetch()){
+        while ($ar_res = $resSection->GetNext()) {
             $parents = $ar_res["NAME"] . "->" . $parents;
-            if ($sectionID = $ar_res["IBLOCK_SECTION_ID"])
-                $parents = self::FindParents($sectionID, $parents);
+            if ($ar_res["IBLOCK_SECTION_ID"])
+                $parents = self::FindParents($ar_res["IBLOCK_SECTION_ID"], $parents);
         }
         return $parents;
+    }
+
+}
+
+
+/* Он должен удалять все логи, кроме 10 самых новых. */
+function clearOldLogs()
+{
+    \Bitrix\Main\Loader::includeModule('iblock');
+    /* Поиск ID инфоблока LOG*/
+    $IBLOCK_CODE = 'LOG';
+    $res = CIBlock::GetList(array(), ['CODE' => $IBLOCK_CODE]);
+    while ($ar_res = $res->Fetch()) {
+        $IBLOCK_ID = $ar_res['ID'];
+    }
+    /* Получаю все элементы в LOG, кроме 10 самых новых */
+    $resElement = CIBlockElement::GetList(
+        array('ACTIVE_FROM' => 'DESC'),
+        array('IBLOCK_ID' => $IBLOCK_ID),
+        array("ID", "ACTIVE_FROM")
+    );
+    if ($resElement && count($resElement) > 10) {
+        $arDelElement = array_slice($resElement, 10);
+        /* Удаляю элементы в LOG */
+        if ($ar_del = $arDelElement->Fetch()) {
+            if (CIBlockElement::Delete($ar_del['ID'])) {
+                AddMessage2Log("Запись с ID-" . $ar_del['ID'] . " удалена.");
+            } else {
+                AddMessage2Log("Ошибка удаления записи с ID-" . $ar_del['ID']);
+            }
+        }
     }
 }

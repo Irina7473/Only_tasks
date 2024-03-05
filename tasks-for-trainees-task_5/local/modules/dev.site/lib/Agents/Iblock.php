@@ -4,11 +4,16 @@ namespace Only\Site\Agents;
 
 class Iblock
 {
-    protected static  $IBLOCK_CODE = 'LOG';
+    /* Он должен удалять все логи, кроме 10 самых новых. */
     public static function clearOldLogs()
     {
-        /* Он должен удалять все логи, кроме 10 самых новых. */
-        $IBLOCK_ID = self::FindIBlockID(self::$IBLOCK_CODE);
+        \Bitrix\Main\Loader::includeModule('iblock');
+        /* Поиск ID инфоблока LOG*/
+        $IBLOCK_CODE = 'LOG';
+        $res = CIBlock::GetList(array(), ['CODE' => $IBLOCK_CODE]);
+        while ($ar_res = $res->Fetch()) {
+            $IBLOCK_ID = $ar_res['ID'];
+        }
         /* Получаю все элементы в LOG, кроме 10 самых новых */
         $resElement = CIBlockElement::GetList(
             Array('ACTIVE_FROM'=>'DESC'),
@@ -45,13 +50,4 @@ class Iblock
         return '\\' . __CLASS__ . '::' . __FUNCTION__ . '();';
     }
 
-    /* Поиск ID инфоблока LOG*/
-    static function FindIBlockID(string $IBLOCK_CODE)
-    {
-        $res = CIBlock::GetList(array(), ['CODE' => $IBLOCK_CODE]);
-        while ($ar_res = $res->Fetch()) {
-            $IBLOCK_ID = $ar_res['ID'];
-        }
-        return $IBLOCK_ID;
-    }
 }
