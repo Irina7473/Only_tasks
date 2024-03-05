@@ -61,9 +61,13 @@ class Iblock
 
 
                 /* Получаю текст для анонса элемента LOG */
+                $resElement = CIBlockElement::GetByID($arFields["ID"]);
+                while($ar_res = $resElement->GetNext()){
+                    $IBLOCK_SECTION_ID=$ar_res["IBLOCK_SECTION_ID"];
+                }
                 $parents = "";
-                if ($arFields["IBLOCK_SECTION_ID"])
-                    $parents = self::FindParents($arFields["IBLOCK_SECTION_ID"], $parents);
+                if ($IBLOCK_SECTION_ID)
+                    $parents = self::FindParents($IBLOCK_SECTION_ID, $parents);
                 $previewTextElement = $iBlockName . "->" . $parents . $arFields["NAME"];
 
                 /* Массив, содержащий значения полей элемента LOG*/
@@ -213,10 +217,10 @@ class Iblock
     static function FindParents(int $sectionID, string &$parents)
     {
         $resSection = CIBlockSection::GetByID($sectionID);
-        while($ar_res = $resSection->Fetch()){
+        while($ar_res = $resSection->GetNext()){
             $parents = $ar_res["NAME"] . "->" . $parents;
-            if ($sectionID = $ar_res["IBLOCK_SECTION_ID"])
-                $parents = self::FindParents($sectionID, $parents);
+            if ($ar_res["IBLOCK_SECTION_ID"])
+                $parents = self::FindParents($ar_res["IBLOCK_SECTION_ID"], $parents);
         }
         return $parents;
     }
