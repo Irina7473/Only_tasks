@@ -59,6 +59,7 @@ class Iblock
                     }
                 }
 
+
                 /* Получаю текст для анонса элемента LOG */
                 $parents = "";
                 if ($arFields["IBLOCK_SECTION_ID"])
@@ -76,12 +77,13 @@ class Iblock
                 ];
 
                 /* Проверяю - есть ли такой элемент в LOG */
+                $element = new CIBlockElement;
                 $resElement = CIBlockElement::GetList( Array(),
                     Array('IBLOCK_ID'=>$IBLOCK_ID, 'NAME'=>$arFields["ID"]) );
                 /* Изменяю элемент в LOG */
                 if($ar_res = $resElement->Fetch()){
                     $elementID = $ar_res["ID"];
-                    $element = CIBlockElement::GetByID($elementID);
+                    /*$element = CIBlockElement::GetByID($elementID);*/
                     if ($element->Update($elementID, $arFieldsElement)) {
                         AddMessage2Log("Изменен элемент с ID-" . $elementID);
                     } else {
@@ -90,7 +92,6 @@ class Iblock
                 }
                 /* Добавляю элемент в LOG */
                 else {
-                    $element = new CIBlockElement;
                     if ($elementID = $element->Add($arFieldsElement)) {
                         AddMessage2Log("Добавлен элемент с ID-" . $elementID);
                     } else {
